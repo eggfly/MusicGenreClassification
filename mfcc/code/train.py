@@ -150,7 +150,7 @@ if __name__ == "__main__":
     pred = conv_net(x, weights, biases, keep_prob)
 
     # Define loss and optimizer
-    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
+    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
     optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 
     # Evaluate model
@@ -181,12 +181,12 @@ if __name__ == "__main__":
                 print("Iter " + str(step * batch_size) + ", Minibatch Loss= " + \
                       "{:.6f}".format(loss) + ", Training Accuracy= " + "{:.5f}".format(acc))
 
-                save_path = saver.save(sess, "model.ckpt")
+                save_path = saver.save(sess, "./model.ckpt")
                 print("Model saved in file: %s" % save_path)
             step += 1
         print("Optimization Finished!")
 
-        save_path = saver.save(sess, "model.final")
+        save_path = saver.save(sess, "./model.final")
         print("Model saved in file: %s" % save_path)
 
         # Calculate accuracy
