@@ -194,3 +194,9 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
+# project related
+data
+checkpoint
+model.ckpt.*
+model.final.*
+
