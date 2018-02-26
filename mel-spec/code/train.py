@@ -11,6 +11,7 @@ import tensorflow as tf
 import numpy as np
 import pickle
 
+
 def getBatch(data, labels, batchSize, iteration):
     startOfBatch = (iteration * batchSize) % len(data)
     endOfBacth = (iteration * batchSize + batchSize) % len(data)
@@ -18,8 +19,8 @@ def getBatch(data, labels, batchSize, iteration):
     if startOfBatch < endOfBacth:
         return data[startOfBatch:endOfBacth], labels[startOfBatch:endOfBacth]
     else:
-        dataBatch = np.vstack((data[startOfBatch:],data[:endOfBacth]))
-        labelsBatch = np.vstack((labels[startOfBatch:],labels[:endOfBacth]))
+        dataBatch = np.vstack((data[startOfBatch:], data[:endOfBacth]))
+        labelsBatch = np.vstack((labels[startOfBatch:], labels[:endOfBacth]))
 
         return dataBatch, labelsBatch
 
@@ -35,7 +36,7 @@ if __name__ == "__main__":
 
     # Network Parameters
     # n_input = 599 * 128
-    n_input = 599 * 128*2
+    n_input = 599 * 128 * 2
     n_classes = 10
     dropout = 0.75  # Dropout, probability to keep units
 
@@ -68,7 +69,6 @@ if __name__ == "__main__":
 
     testData = data[train_size:]
     testLabels = labels[train_size:]
-
 
     # tf Graph input
     x = tf.placeholder(tf.float32, [None, n_input])
@@ -139,18 +139,18 @@ if __name__ == "__main__":
     }
 
     biases = {
-        'bc1': tf.Variable(tf.random_normal([149])+0.01),
-        'bc2': tf.Variable(tf.random_normal([73])+0.01),
-        'bc3': tf.Variable(tf.random_normal([35])+0.01),
-        'bd1': tf.Variable(tf.random_normal([8192])+0.01),
-        'out': tf.Variable(tf.random_normal([n_classes])+0.01)
+        'bc1': tf.Variable(tf.random_normal([149]) + 0.01),
+        'bc2': tf.Variable(tf.random_normal([73]) + 0.01),
+        'bc3': tf.Variable(tf.random_normal([35]) + 0.01),
+        'bd1': tf.Variable(tf.random_normal([8192]) + 0.01),
+        'out': tf.Variable(tf.random_normal([n_classes]) + 0.01)
     }
 
     # Construct model
     pred = conv_net(x, weights, biases, keep_prob)
 
     # Define loss and optimizer
-    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
+    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
     optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 
     # Evaluate model
@@ -181,12 +181,12 @@ if __name__ == "__main__":
                 print("Iter " + str(step * batch_size) + ", Minibatch Loss= " + \
                       "{:.6f}".format(loss) + ", Training Accuracy= " + "{:.5f}".format(acc))
 
-                save_path = saver.save(sess, "model.ckpt")
+                save_path = saver.save(sess, "./model.ckpt")
                 print("Model saved in file: %s" % save_path)
             step += 1
         print("Optimization Finished!")
 
-        save_path = saver.save(sess, "model.final")
+        save_path = saver.save(sess, "./model.final")
         print("Model saved in file: %s" % save_path)
 
         # Calculate accuracy

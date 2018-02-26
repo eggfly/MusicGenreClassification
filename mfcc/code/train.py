@@ -11,6 +11,7 @@ import tensorflow as tf
 import numpy as np
 import pickle
 
+
 def getBatch(data, labels, batchSize, iteration):
     startOfBatch = (iteration * batchSize) % len(data)
     endOfBacth = (iteration * batchSize + batchSize) % len(data)
@@ -18,8 +19,8 @@ def getBatch(data, labels, batchSize, iteration):
     if startOfBatch < endOfBacth:
         return data[startOfBatch:endOfBacth], labels[startOfBatch:endOfBacth]
     else:
-        dataBatch = np.vstack((data[startOfBatch:],data[:endOfBacth]))
-        labelsBatch = np.vstack((labels[startOfBatch:],labels[:endOfBacth]))
+        dataBatch = np.vstack((data[startOfBatch:], data[:endOfBacth]))
+        labelsBatch = np.vstack((labels[startOfBatch:], labels[:endOfBacth]))
 
         return dataBatch, labelsBatch
 
@@ -68,7 +69,6 @@ if __name__ == "__main__":
 
     testData = data[train_size:]
     testLabels = labels[train_size:]
-
 
     # tf Graph input
     x = tf.placeholder(tf.float32, [None, n_input])
