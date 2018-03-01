@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     # Parameters
     learning_rate = 0.001
-    training_iters = 100000
+    training_iters = 20000
     batch_size = 64
     display_step = 1
     train_size = 800
@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     # Load data
     data = []
-    with open("data", 'r') as f:
+    with open("../input/data", 'r') as f:
         content = f.read()
         data = pickle.loads(content)
     data = np.asarray(data)
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     data = data.reshape((data.shape[0], n_input))
 
     labels = []
-    with open("labels", 'r') as f:
+    with open("../input/labels", 'r') as f:
         content = f.read()
         labels = pickle.loads(content)
 
