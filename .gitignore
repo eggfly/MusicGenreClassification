@@ -196,7 +196,8 @@ target/
 
 # project related
 data
+genres
 checkpoint
 model.ckpt.*
 model.final.*
-
+/musics

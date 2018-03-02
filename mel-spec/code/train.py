@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     # Parameters
     learning_rate = 0.001
-    training_iters = 20000
+    training_iters = 100000
     batch_size = 64
     display_step = 1
     train_size = 800
